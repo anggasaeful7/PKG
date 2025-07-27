@@ -43,15 +43,32 @@ class Login extends CI_Controller{
 		$result = $this->login_model->read("t_dataguru.NIP='".$username."' AND t_login.password='".md5($password)."' OR t_login.username='".$username."' AND t_login.password='".md5($password)."'");
 		
 		if(count($result) !=0){
-			$this->session->set_userdata("username", $result[0]->NIP);
-			$this->session->set_userdata("nama", $result[0]->nama);
-			$this->session->set_userdata("image", $result[0]->image);
-			$this->session->set_userdata("level",$result[0]->id_level);
-			$this->session->set_userdata("id_guru",$result[0]->id_guru);
-			
-			$this->session->set_flashdata("success", "Berhasil Login!");
-			
-			redirect("home");
+			$user_data = $result[0];
+			if ($user_data->id_level == 4) {
+				$this->session->set_userdata("username", $user_data->username);
+				$this->session->set_userdata("nama", $user_data->nama_siswa);
+				$this->session->set_userdata("image", "default-avatar.png");
+				$this->session->set_userdata("level", $user_data->id_level);
+				$this->session->set_userdata("id_guru", $user_data->id_siswa);
+				$this->session->set_flashdata("success", "Berhasil Login!");
+				redirect("home");
+			} else if ($user_data->id_level == 5) {
+				$this->session->set_userdata("username", $user_data->username);
+				$this->session->set_userdata("nama", $user_data->nama_wali);
+				$this->session->set_userdata("image", "default-avatar.png");
+				$this->session->set_userdata("level", $user_data->id_level);
+				$this->session->set_userdata("id_guru", $user_data->id_wali);
+				$this->session->set_flashdata("success", "Berhasil Login!");
+				redirect("home");
+			}else {
+				$this->session->set_userdata("username", $user_data->NIP);
+				$this->session->set_userdata("nama", $user_data->nama);
+				$this->session->set_userdata("image", $user_data->image);
+				$this->session->set_userdata("level", $user_data->id_level);
+				$this->session->set_userdata("id_guru", $user_data->id_guru);
+				$this->session->set_flashdata("success", "Berhasil Login!");
+				redirect("home");
+			}
 		}else{
 			$this->session->set_flashdata("error", "Username Atau Password Salah!");
 			

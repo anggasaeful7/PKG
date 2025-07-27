@@ -24,6 +24,7 @@ class DataGuru extends CI_Controller{
 		$data['matpel'] = $this->Data_model->bacaMatpel();
 		$data['sekolah'] = $this->Data_model->bacaSekolah();
 		$data['level'] = $this->Data_model->bacalevel();
+		$data['kelas'] = $this->Data_model->bacaKelas();
 		$data['penilai'] = $this->Data_model->read("id_guru=2");
 		$data['id_guru'] = "";
 		$data['bagian'] = "";

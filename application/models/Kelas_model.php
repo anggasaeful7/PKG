@@ -1,10 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 	
-class Siswa_model extends CI_Model{
-	var $column_order = array('id_siswa','NIS','nama_siswa','id_kelas','alamat','agama','no_hp');
-	var $column_search = array('NIS','nama_siswa');
-	var $order = array('id_siswa' => 'desc');
+class Kelas_model extends CI_Model{
+	var $column_order = array('id_kelas','nama_kelas');
+	var $column_search = array('nama_kelas');
+	var $order = array('id_kelas' => 'desc');
 	
 	public function __construct(){
 		parent::__construct();
@@ -12,8 +12,7 @@ class Siswa_model extends CI_Model{
 	}
 
     private function _get_datatables_query(){	
-		$this->db->from('t_siswa');
-		$this->db->join("t_kelas",'t_kelas.id_kelas = t_siswa.id_kelas');
+		$this->db->from('t_kelas');
 
 		$i = 0;
 	
@@ -63,51 +62,34 @@ class Siswa_model extends CI_Model{
 		return $query->num_rows();
 	}
 
-    function create($data, $login){
-		$this->db->insert("t_siswa",$data);
-		$this->db->insert("t_login",$login);
+    function create($data){
+		$this->db->insert("t_kelas",$data);
 	}
 	
 	function update($where, $data){
 		$this->db->where($where);
-		$this->db->update("t_siswa", $data);
+		$this->db->update("t_kelas", $data);
 		
 		if($this->db->affected_rows()>0){
-			$this->session->set_flashdata("success", "Data Siswa Berhasil Diubah");
+			$this->session->set_flashdata("success", "Data kelas Berhasil Diubah");
 		}else{
 			$this->session->set_flashdata("error", "Terjadi Kesalahan,".$this->db->error());
 		}
 	}
 	
 	function delete($where){
-		$this->db->delete("t_login",array('NIP' => $where));
-		$this->db->delete("t_siswa",array('NIS' => $where));
+		$this->db->delete("t_kelas",array('id_kelas' => $where));
 	}
 	
 	function get_id($id){
-		$this->db->where("id_siswa",$id);
-		$this->db->join("t_kelas",'t_kelas.id_kelas = t_siswa.id_kelas');
+		$this->db->where("id_kelas",$id);
 		
-		$query = $this->db->get("t_siswa");
+		$query = $this->db->get("t_kelas");
 		
 		return $query->row();
 	}
 
     function read($where="",$order=""){
-		if(!empty($where))$this->db->where($where);
-		if(!empty($order))$this->db->order_by($order);
-		
-		$this->db->join("t_kelas",'t_kelas.id_kelas = t_siswa.id_kelas');
-		
-		$query = $this->db->get("t_siswa");
-		if($query AND $query->num_rows() !=0){
-			return $query->result();
-		}else{
-			return array();
-		}
-	}
-
-    function bacaKelas($where="",$order=""){
 		if(!empty($where))$this->db->where($where);
 		if(!empty($order))$this->db->order_by($order);
 		

@@ -169,6 +169,66 @@
 				},
 				],
 			});
+
+			tableSiswa = $('#data-siswa').DataTable({
+				"info":false,
+				"deferRender":true,
+				"processing": true,
+				"serverSide": true,
+				"bFilter" : true,
+				"bSort" : true,
+				"ajax": {
+					"url": "<?php echo site_url('datasiswa/ajax_data')?>",
+					"type": "POST"
+				},
+				"columnDefs": [
+				{ 
+					"targets": [ -1, 0, 2, 3, 4, 5, 6 ],
+					"orderable": false,
+					"className": 'mdl-data-table__cell--non-numeric'
+				},
+				],
+			});
+
+			tableKelas = $('#data-kelas').DataTable({
+				"info":false,
+				"deferRender":true,
+				"processing": true,
+				"serverSide": true,
+				"bFilter" : true,
+				"bSort" : true,
+				"ajax": {
+					"url": "<?php echo site_url('datakelas/ajax_data')?>",
+					"type": "POST"
+				},
+				"columnDefs": [
+				{ 
+					"targets": [ 0, 2],
+					"orderable": false,
+					"className": 'mdl-data-table__cell--non-numeric'
+				},
+				],
+			});
+
+			tableWaliSiswa = $('#data-wali-siswa').DataTable({
+				"info":false,
+				"deferRender":true,
+				"processing": true,
+				"serverSide": true,
+				"bFilter" : true,
+				"bSort" : true,
+				"ajax": {
+					"url": "<?php echo site_url('datawalisiswa/ajax_data')?>",
+					"type": "POST"
+				},
+				"columnDefs": [
+				{ 
+					"targets": [ 0, 2, 3, 4, 5],
+					"orderable": false,
+					"className": 'mdl-data-table__cell--non-numeric'
+				},
+				],
+			});
 			
 			$('.autocomplete').autocomplete({
                 serviceUrl: '<?= site_url("Pm/search")?>',
@@ -185,6 +245,33 @@
 			$('#btnSave').attr("disabled", true);
 			$('#tmbhData').appendTo("body").modal('show');
 			$('.modal-title').text('Tambah Data Guru');
+		}
+
+		function tambah_siswa(){
+			save_method = 'tambah';
+			$('#formSiswa')[0].reset();
+			$('.help-block').empty();
+			// $('#btnSaveSiswa').attr("disabled", true);
+			$('#tmbhDataSiswa').appendTo("body").modal('show');
+			$('.modal-title').text('Tambah Data Siswa');
+		}
+
+		function tambah_kelas(){
+			save_method = 'tambah';
+			$('#formKelas')[0].reset();
+			$('.help-block').empty();
+			// $('#btnSaveKelas').attr("disabled", true);
+			$('#tmbhDataKelas').appendTo("body").modal('show');
+			$('.modal-title').text('Tambah Data Kelas');
+		}
+
+		function tambah_wali_siswa(){
+			save_method = 'tambah';
+			$('#formWaliSiswa')[0].reset();
+			$('.help-block').empty();
+			// $('#btnSaveWaliSiswa').attr("disabled", true);
+			$('#tmbhDataWaliSiswa').appendTo("body").modal('show');
+			$('.modal-title').text('Tambah Data WaliSiswa');
 		}
 		
 		//ajax load data
@@ -225,6 +312,65 @@
 				}
 			});
 		}
+
+		function get_data_siswa(id){
+			$.ajax({
+				url : "<?= site_url('datasiswa/ajax_get')?>/"+id,
+				type : "GET",
+				dataType : "JSON",
+				success : function(data){
+					$('#profilDataSiswa').appendTo("body").modal('show');
+					$('.titleNamaSiswa').text(data.nama_siswa);
+					$('.nama_siswa').text(data.nama_siswa);
+					$('.nis').text(data.NIS);
+					$('.kelas').text(data.nama_kelas);
+					$('.alamat').text(data.alamat);
+					$('.agama').text(data.agama);
+					$('.no_hp').text(data.no_hp);
+					
+					$('.showimage').attr("src","<?php echo base_url('media')?>/assets/img/users/default-avatar.png");
+				},error: function (jqXHR, textStatus, errorThrown){
+					swal("ERROR", "Terjadi Kesalahan Pada Ajax", "error");
+				}
+			});
+		}
+
+		function get_data_wali(id){
+			$.ajax({
+				url : "<?= site_url('datawalisiswa/ajax_get')?>/"+id,
+				type : "GET",
+				dataType : "JSON",
+				success : function(data){
+					$('#profilDataWaliSiswa').appendTo("body").modal('show');
+					$('.titleNamaWaliSiswa').text(data.nama_wali);
+					$('.NIK').text(data.NIK);
+					$('.nama_wali').text(data.nama_wali);
+					$('.no_hp').text(data.no_hp);
+					$('.alamat').text(data.alamat);
+					
+					$('.showimage').attr("src","<?php echo base_url('media')?>/assets/img/users/default-avatar.png");
+				},error: function (jqXHR, textStatus, errorThrown){
+					swal("ERROR", "Terjadi Kesalahan Pada Ajax", "error");
+				}
+			});
+		}
+
+		function get_data_kelas(id){
+			$.ajax({
+				url : "<?= site_url('datakelas/ajax_get')?>/"+id,
+				type : "GET",
+				dataType : "JSON",
+				success : function(data){
+					$('#profilDataKelas').appendTo("body").modal('show');
+					$('.titleNamaKelas').text(data.nama_kelas);
+					$('.nama_kelas').text(data.nama_kelas);
+					
+					$('.showimage').attr("src","<?php echo base_url('media')?>/assets/img/users/default-avatar.png");
+				},error: function (jqXHR, textStatus, errorThrown){
+					swal("ERROR", "Terjadi Kesalahan Pada Ajax", "error");
+				}
+			});
+		}
 		
 		//ajax tambah data
 		function save(){
@@ -256,6 +402,96 @@
 				}
 			});
 		}
+
+		function saveSiswa(){
+			$('#btnSaveSiswa').text('Saving...');
+			$('#btnSaveSiswa').attr('disabled', true);
+			var url;
+			
+			if(save_method == 'tambah'){
+				url = "<?= site_url('datasiswa/do_add')?>";
+			}
+			
+			$.ajax({
+				url : url,
+				type: "POST",
+				data: $('#formSiswa').serialize(),
+				dataType : "JSON",
+				success : function(data){
+					if(data.status){
+						swal("Berhasil!", "Data Telah Ditambahkan!", "success");
+						$('#tmbhDataSiswa').appendTo("body").modal('hide');
+						reload_table();
+					}
+					$('#btnSaveSiswa').text('save');
+					$('#btnSaveSiswa').attr('disabled',false);
+				}, error: function(jqXHR, textStatus, errorThrown){
+					sweetAlert("Oops...", "Error Saat Menambah/Edit Data!", "error");
+					$('#btnSaveSiswa').text('save');
+					$('#btnSaveSiswa').attr('disabled',false);
+				}
+			});
+		}
+
+		function saveKelas(){
+			$('#btnSaveKelas').text('Saving...');
+			$('#btnSaveKelas').attr('disabled', true);
+			var url;
+			
+			if(save_method == 'tambah'){
+				url = "<?= site_url('datakelas/do_add')?>";
+			}
+			
+			$.ajax({
+				url : url,
+				type: "POST",
+				data: $('#formKelas').serialize(),
+				dataType : "JSON",
+				success : function(data){
+					if(data.status){
+						swal("Berhasil!", "Data Telah Ditambahkan!", "success");
+						$('#tmbhDataKelas').appendTo("body").modal('hide');
+						reload_table();
+					}
+					$('#btnSaveKelas').text('save');
+					$('#btnSaveKelas').attr('disabled',false);
+				}, error: function(jqXHR, textStatus, errorThrown){
+					sweetAlert("Oops...", "Error Saat Menambah/Edit Data!", "error");
+					$('#btnSaveKelas').text('save');
+					$('#btnSaveKelas').attr('disabled',false);
+				}
+			});
+		}
+
+		function saveWaliSiswa(){
+			$('#btnSaveWaliSiswa').text('Saving...');
+			$('#btnSaveWaliSiswa').attr('disabled', true);
+			var url;
+			
+			if(save_method == 'tambah'){
+				url = "<?= site_url('datawalisiswa/do_add')?>";
+			}
+			
+			$.ajax({
+				url : url,
+				type: "POST",
+				data: $('#formWaliSiswa').serialize(),
+				dataType : "JSON",
+				success : function(data){
+					if(data.status){
+						swal("Berhasil!", "Data Telah Ditambahkan!", "success");
+						$('#tmbhDataWaliSiswa').appendTo("body").modal('hide');
+						reload_table();
+					}
+					$('#btnSaveWaliSiswa').text('save');
+					$('#btnSaveWaliSiswa').attr('disabled',false);
+				}, error: function(jqXHR, textStatus, errorThrown){
+					sweetAlert("Oops...", "Error Saat Menambah/Edit Data!", "error");
+					$('#btnSaveWaliSiswa').text('save');
+					$('#btnSaveWaliSiswa').attr('disabled',false);
+				}
+			});
+		}
 		
 		//ajax delete
     	function delete_guru(id){
@@ -274,6 +510,99 @@
 					if(isConfirm){
 						$.ajax({
 							url: "<?= site_url('DataGuru/delete')?>/"+id,
+							type: "POST",
+							dataType: "JSON",
+							success : function(data){
+								swal("Berhasil!", "Data Telah Terhapus!", "success");
+								reload_table();
+							},error: function (jqXHR, textStatus, errorThrown){
+								swal("Gagal", "Terjadi Kesalahan Pada Input Ke Database", "error");
+							}
+						});
+					}else{
+						swal("Cancelled", "Data Anda Tetap Tersimpan", "error");
+					}
+				});
+		}
+
+		function delete_siswa(id){
+			swal({
+				title: "Anda Yakin?",   
+				text: "Anda Akan Segera Menghapus Data Yang Anda Pilih!",   
+				type: "warning",   
+				showCancelButton: true,   
+				confirmButtonColor: "#DD6B55",   
+				confirmButtonText: "Yakin",   
+				cancelButtonText: "Tidak",   
+				closeOnConfirm: false,   
+				closeOnCancel: false
+				},
+				function(isConfirm){
+					if(isConfirm){
+						$.ajax({
+							url: "<?= site_url('datasiswa/delete')?>/"+id,
+							type: "POST",
+							dataType: "JSON",
+							success : function(data){
+								swal("Berhasil!", "Data Telah Terhapus!", "success");
+								reload_table();
+							},error: function (jqXHR, textStatus, errorThrown){
+								swal("Gagal", "Terjadi Kesalahan Pada Input Ke Database", "error");
+							}
+						});
+					}else{
+						swal("Cancelled", "Data Anda Tetap Tersimpan", "error");
+					}
+				});
+		}
+
+		function delete_kelas(id){
+			swal({
+				title: "Anda Yakin?",   
+				text: "Anda Akan Segera Menghapus Data Yang Anda Pilih!",   
+				type: "warning",   
+				showCancelButton: true,   
+				confirmButtonColor: "#DD6B55",   
+				confirmButtonText: "Yakin",   
+				cancelButtonText: "Tidak",   
+				closeOnConfirm: false,   
+				closeOnCancel: false
+				},
+				function(isConfirm){
+					if(isConfirm){
+						$.ajax({
+							url: "<?= site_url('datakelas/delete')?>/"+id,
+							type: "POST",
+							dataType: "JSON",
+							success : function(data){
+								swal("Berhasil!", "Data Telah Terhapus!", "success");
+								reload_table();
+							},error: function (jqXHR, textStatus, errorThrown){
+								swal("Gagal", "Terjadi Kesalahan Pada Input Ke Database", "error");
+							}
+						});
+					}else{
+						swal("Cancelled", "Data Anda Tetap Tersimpan", "error");
+					}
+				});
+		}
+
+		function delete_wali_siswa(id){
+			swal({
+				title: "Anda Yakin?",   
+				text: "Anda Akan Segera Menghapus Data Yang Anda Pilih!",   
+				type: "warning",   
+				showCancelButton: true,   
+				confirmButtonColor: "#DD6B55",   
+				confirmButtonText: "Yakin",   
+				cancelButtonText: "Tidak",   
+				closeOnConfirm: false,   
+				closeOnCancel: false
+				},
+				function(isConfirm){
+					if(isConfirm){
+						$.ajax({
+							url: "<?= site_url('datawalisiswa/delete')?>/"+id,
 							type: "POST",
 							dataType: "JSON",
 							success : function(data){
@@ -327,6 +656,9 @@
 		
 		function reload_table(){
 			table.ajax.reload(null,false);
+			tableSiswa.ajax.reload(null,false);
+			tableKelas.ajax.reload(null,false);
+			tableWaliSiswa.ajax.reload(null,false);
 		}
 		
 		function refresh_editor(){

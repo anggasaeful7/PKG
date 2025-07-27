@@ -22,7 +22,7 @@ class Login_model extends CI_Model{
 		if(!empty($where))$this->db->where($where);
 		if(!empty($order))$this->db->order_by($order);
 		
-		$this->db->join("t_dataguru",'t_dataguru.NIP = t_login.NIP');
+		$this->db->join("t_dataguru",'t_dataguru.NIP = t_login.NIP', 'left');
 		
 		$query = $this->db->get("t_login");
 		if($query AND $query->num_rows() !=0){

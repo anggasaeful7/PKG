@@ -68,20 +68,20 @@
 									<div class="content">
 										<?php if($this->session->userdata('level')<=1){?>
 											<div class="row sisi-k">
-												<button id="tambahBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="tambah_guru()">Tambah</button>
+												<button id="tambahSiswaBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="tambah_siswa()">Tambah</button>
 											</div>
 										<?php } ?>
 										
 										<div class="row table-responsive padd">
-											<table id="data-guru" class="mdl-data-table" cellspacing="0" cellpadding="0" width="100%">
+											<table id="data-siswa" class="mdl-data-table" cellspacing="0" cellpadding="0" width="100%">
 												<thead>
 													<th>ID</th>
-													<th>NIP</th>
+													<th>NIS</th>
 													<th>Nama</th>
-													<th>Tempat, Tgl Lahir</th>
-													<th>Jenis Kelamin</th>
-													<th>Pangkat Gol.Ruang</th>
-													<th>Jabatan</th>
+													<th>Kelas</th>
+													<th>Alamat</th>
+													<th>Agama</th>
+													<th>No Hp</th>
 													<th><i class="fa fa-exclamation-triangle"></i> Actions</th>
 												</thead>
 												<tbody>
@@ -102,20 +102,15 @@
 									<div class="content">
 										<?php if($this->session->userdata('level')<=1){?>
 											<div class="row sisi-k">
-												<button id="tambahBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="tambah_guru()">Tambah</button>
+												<button id="tambahBtnKelas" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="tambah_kelas()">Tambah</button>
 											</div>
 										<?php } ?>
 										
 										<div class="row table-responsive padd">
-											<table id="data-guru" class="mdl-data-table" cellspacing="0" cellpadding="0" width="100%">
+											<table id="data-kelas" class="mdl-data-table" cellspacing="0" cellpadding="0" width="100%">
 												<thead>
 													<th>ID</th>
-													<th>NIP</th>
-													<th>Nama</th>
-													<th>Tempat, Tgl Lahir</th>
-													<th>Jenis Kelamin</th>
-													<th>Pangkat Gol.Ruang</th>
-													<th>Jabatan</th>
+													<th>Nama Kelas</th>
 													<th><i class="fa fa-exclamation-triangle"></i> Actions</th>
 												</thead>
 												<tbody>
@@ -136,20 +131,18 @@
 									<div class="content">
 										<?php if($this->session->userdata('level')<=1){?>
 											<div class="row sisi-k">
-												<button id="tambahBtn" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="tambah_guru()">Tambah</button>
+												<button id="tambahBtnWaliSiswa" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="tambah_wali_siswa()">Tambah</button>
 											</div>
 										<?php } ?>
 										
 										<div class="row table-responsive padd">
-											<table id="data-guru" class="mdl-data-table" cellspacing="0" cellpadding="0" width="100%">
+											<table id="data-wali-siswa" class="mdl-data-table" cellspacing="0" cellpadding="0" width="100%">
 												<thead>
 													<th>ID</th>
-													<th>NIP</th>
+													<th>NIK</th>
 													<th>Nama</th>
-													<th>Tempat, Tgl Lahir</th>
-													<th>Jenis Kelamin</th>
-													<th>Pangkat Gol.Ruang</th>
-													<th>Jabatan</th>
+													<th>No HP</th>
+													<th>Alamat</th>
 													<th><i class="fa fa-exclamation-triangle"></i> Actions</th>
 												</thead>
 												<tbody>
@@ -509,6 +502,180 @@
 			
 		</div>
 	</div>
+
+	<div id="tmbhDataSiswa" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+		
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title"> </h4>
+				</div>
+				
+				<div class="modal-body form">
+					<form action="#" method="POST" id="formSiswa">
+						<!-- <div class="alert alert-warning">
+							<a type="button" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+							<strong>Warning!</strong> Pastikan Format Tanggal : YYYY-MM-DD
+						</div> -->
+						<!-- <input type="hidden" name="image" value="default-avatar.png"> -->
+						
+						<div class="mdl-grid">
+							<div class="mdl-cell mdl-cell--10-col mdl-cell--1-offset-desktop mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+								<input type="text" class="mdl-textfield__input angka" name="NIS" pattern="-?[0-9]*(\.[0-9]+)?" id="NIS">
+								<label class="mdl-textfield__label" for="NIS"> NIS </label>
+								<span class="mdl-textfield__error"> Harap Masukan Angka! </span>
+							</div>
+						</div>
+						
+						<div class="mdl-grid">
+							<div class="mdl-cell mdl-cell--10-col mdl-cell--1-offset-desktop  mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+								<input type="text" class="mdl-textfield__input" name="nama_siswa" id="nama_siswa"/>
+								<label class="mdl-textfield__label" for="nama_siswa"> NAMA </label>
+							</div>
+						</div>
+						
+						<div class="mdl-grid">
+							<div class="mdl-cell mdl-cell--10-col mdl-cell--1-offset-desktop">
+								<div class="form-group">
+									<label for="id_kelas"><h6> Kelas </h6></label>
+									<select class="mdl-textfield mdl-js-textfield" name="id_kelas" id="id_kelas">
+										<?php
+											foreach($kelas as $kls){
+												echo "<option value='".$kls->id_kelas."'>".$kls->nama_kelas."</option>";
+											}
+										?>
+									</select>
+								</div>
+							</div>
+						</div>
+						
+						<div class="mdl-grid">
+							<div class="mdl-cell mdl-cell--10-col mdl-cell--1-offset-desktop mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+								<input type="text" class="mdl-textfield__input" name="alamat" id="alamat"/>
+								<label class="mdl-textfield__label" for="alamat"> Alamat </label>
+							</div>
+						</div>
+						
+						<div class="mdl-grid">
+							<div class="mdl-cell mdl-cell--10-col mdl-cell--1-offset-desktop mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+								<input type="text" class="mdl-textfield__input" name="agama" id="agama"/>
+								<label class="mdl-textfield__label" for="agama"> Agama </label>
+							</div>
+						</div>
+
+						<div class="mdl-grid">
+							<div class="mdl-cell mdl-cell--10-col mdl-cell--1-offset-desktop mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+								<input type="text" class="mdl-textfield__input" name="no_hp" id="no_hp"/>
+								<label class="mdl-textfield__label" for="no_hp"> No Hp </label>
+							</div>
+						</div>
+					</form>
+				</div>
+				
+				<div class="modal-footer">
+					<div class="pull-left">
+						<button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect" data-dismiss="modal">Close</button>
+					</div>
+					<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="btnSaveSiswa" onclick="saveSiswa()">Submit</button>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+
+	<div id="tmbhDataWaliSiswa" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+		
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title"> </h4>
+				</div>
+				
+				<div class="modal-body form">
+					<form action="#" method="POST" id="formWaliSiswa">
+						<!-- <div class="alert alert-warning">
+							<a type="button" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+							<strong>Warning!</strong> Pastikan Format Tanggal : YYYY-MM-DD
+						</div> -->
+
+						<div class="mdl-grid">
+							<div class="mdl-cell mdl-cell--10-col mdl-cell--1-offset-desktop  mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+								<input type="text" class="mdl-textfield__input" name="NIK" id="NIK"/>
+								<label class="mdl-textfield__label" for="NIK"> NIK </label>
+							</div>
+						</div>
+						
+						<div class="mdl-grid">
+							<div class="mdl-cell mdl-cell--10-col mdl-cell--1-offset-desktop  mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+								<input type="text" class="mdl-textfield__input" name="nama_wali" id="nama_wali"/>
+								<label class="mdl-textfield__label" for="nama_wali"> NAMA WALI </label>
+							</div>
+						</div>
+
+						<div class="mdl-grid">
+							<div class="mdl-cell mdl-cell--10-col mdl-cell--1-offset-desktop mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+								<input type="text" class="mdl-textfield__input" name="no_hp" id="no_hp"/>
+								<label class="mdl-textfield__label" for="no_hp"> No Hp </label>
+							</div>
+						</div>
+						
+						<div class="mdl-grid">
+							<div class="mdl-cell mdl-cell--10-col mdl-cell--1-offset-desktop mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+								<input type="text" class="mdl-textfield__input" name="alamat" id="alamat"/>
+								<label class="mdl-textfield__label" for="alamat"> Alamat </label>
+							</div>
+						</div>
+					</form>
+				</div>
+				
+				<div class="modal-footer">
+					<div class="pull-left">
+						<button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect" data-dismiss="modal">Close</button>
+					</div>
+					<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="btnSaveWaliSiswa" onclick="saveWaliSiswa()">Submit</button>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+
+	<div id="tmbhDataKelas" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+		
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title"> </h4>
+				</div>
+				
+				<div class="modal-body form">
+					<form action="#" method="POST" id="formKelas">
+						<!-- <div class="alert alert-warning">
+							<a type="button" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+							<strong>Warning!</strong> Pastikan Format Tanggal : YYYY-MM-DD
+						</div> -->
+						
+						<div class="mdl-grid">
+							<div class="mdl-cell mdl-cell--10-col mdl-cell--1-offset-desktop  mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+								<input type="text" class="mdl-textfield__input" name="nama_kelas" id="nama_kelas"/>
+								<label class="mdl-textfield__label" for="nama_kelas"> NAMA KELAS </label>
+							</div>
+						</div>
+					</form>
+				</div>
+				
+				<div class="modal-footer">
+					<div class="pull-left">
+						<button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect" data-dismiss="modal">Close</button>
+					</div>
+					<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="btnSaveKelas" onclick="saveKelas()">Submit</button>
+				</div>
+			</div>
+			
+		</div>
+	</div>
 	
 	<div class="modal fade" id="profilData" role="dialog">
 		<div class="modal-dialog">
@@ -672,6 +839,207 @@
 								<div class="row">
 									<div class="col-md-3 col-xs-4"> <h6> TGL Persetujuan: </h6> </div>
 									<div class="col-md-8 col-xs-7 borderv1"> <h6><span class="pers"></span></h6> </div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+		
+		</div>
+	</div>
+
+	<div class="modal fade" id="profilDataSiswa" role="dialog">
+		<div class="modal-dialog">
+		
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title"> Profil Siswa </h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="card">
+						<div class="image">
+							<img class="lazy" data-src="<?php echo base_url('media')?>/assets/img/wall-1.jpg" alt="Photo Sekolah">
+						</div>
+						
+						<div class="content card-user">
+							<div class="author">
+								<a href="#">
+									<img class="avatar border-gray showimage" src="" alt="..."/>
+									<h4 class="title titleNamaSiswa"> </h4>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-md-12">
+						<ul class="nav nav-tabs">
+							<li class="active"><a data-toggle="tab" href="#awal"> Data Diri </a></li>
+						</ul>
+						
+						<div class="tab-content">
+							<div id="awal" class="tab-pane fade in active">
+								<div class="header">
+									<h4 class="title"> Data Diri </h4>
+								</div>
+								
+								<div class="row">
+									<div class="col-md-3 col-xs-4"> <h6> Nama : </h6> </div>
+									<div class="col-md-8 col-xs-7 borderv1"> <h6><span class="nama_siswa"></span></h6> </div>
+								</div>
+								
+								<div class="row">
+									<div class="col-md-3 col-xs-4"> <h6> NIS : </h6> </div>
+									<div class="col-md-8 col-xs-7 borderv1"> <h6><span class="nis"></span></h6> </div>
+								</div>
+								
+								<div class="row">
+									<div class="col-md-3 col-xs-4"> <h6> Kelas : </h6> </div>
+									<div class="col-md-8 col-xs-7 borderv1"> <h6><span class="kelas"></span></h6> </div>
+								</div>
+								
+								<div class="row">
+									<div class="col-md-3 col-xs-4"> <h6> Alamat : </h6> </div>
+									<div class="col-md-8 col-xs-7 borderv1"> <h6><span class="alamat"></span></h6> </div>
+								</div>
+								
+								<div class="row">
+									<div class="col-md-3 col-xs-4"> <h6> Agama : </h6> </div>
+									<div class="col-md-8 col-xs-7 borderv1"> <h6><span class="agama"></span></h6> </div>
+								</div>
+								
+								<div class="row">
+									<div class="col-md-3 col-xs-4"> <h6> No HP : </h6> </div>
+									<div class="col-md-8 col-xs-7 borderv1"> <h6><span class="no_hp"></span></h6> </div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+		
+		</div>
+	</div>
+
+	<div class="modal fade" id="profilDataWaliSiswa" role="dialog">
+		<div class="modal-dialog">
+		
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title"> Profil Wali Siswa </h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="card">
+						<div class="image">
+							<img class="lazy" data-src="<?php echo base_url('media')?>/assets/img/wall-1.jpg" alt="Photo Sekolah">
+						</div>
+						
+						<div class="content card-user">
+							<div class="author">
+								<a href="#">
+									<img class="avatar border-gray showimage" src="" alt="..."/>
+									<h4 class="title titleNamaWaliSiswa"> </h4>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-md-12">
+						<ul class="nav nav-tabs">
+							<li class="active"><a data-toggle="tab" href="#awal"> Data Diri </a></li>
+						</ul>
+						
+						<div class="tab-content">
+							<div id="awal" class="tab-pane fade in active">
+								<div class="header">
+									<h4 class="title"> Data Diri </h4>
+								</div>
+
+								<div class="row">
+									<div class="col-md-3 col-xs-4"> <h6> NIK : </h6> </div>
+									<div class="col-md-8 col-xs-7 borderv1"> <h6><span class="NIK"></span></h6> </div>
+								</div>
+								
+								<div class="row">
+									<div class="col-md-3 col-xs-4"> <h6> Nama : </h6> </div>
+									<div class="col-md-8 col-xs-7 borderv1"> <h6><span class="nama_wali"></span></h6> </div>
+								</div>
+								
+								<div class="row">
+									<div class="col-md-3 col-xs-4"> <h6> No HP : </h6> </div>
+									<div class="col-md-8 col-xs-7 borderv1"> <h6><span class="no_hp"></span></h6> </div>
+								</div>
+								
+								<div class="row">
+									<div class="col-md-3 col-xs-4"> <h6> Alamat : </h6> </div>
+									<div class="col-md-8 col-xs-7 borderv1"> <h6><span class="alamat"></span></h6> </div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+		
+		</div>
+	</div>
+
+	<div class="modal fade" id="profilDataKelas" role="dialog">
+		<div class="modal-dialog">
+		
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title"> Profil Kelas </h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="card">
+						
+						<div class="content card-user">
+							<div class="author">
+								<a href="#">
+									<h4 class="title titleNamaKelas"> </h4>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-md-12">
+						<ul class="nav nav-tabs">
+							<li class="active"><a data-toggle="tab" href="#awal"> Data Kelas </a></li>
+						</ul>
+						
+						<div class="tab-content">
+							<div id="awal" class="tab-pane fade in active">
+								
+								<div class="row">
+									<div class="col-md-3 col-xs-4"> <h6> Nama Kelas : </h6> </div>
+									<div class="col-md-8 col-xs-7 borderv1"> <h6><span class="nama_kelas"></span></h6> </div>
 								</div>
 							</div>
 						</div>

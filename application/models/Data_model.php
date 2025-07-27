@@ -204,6 +204,18 @@ class Data_model extends CI_Model{
 			return array();
 		}
 	}
+	
+	function bacaKelas($where="",$order=""){
+		if(!empty($where))$this->db->where($where);
+		if(!empty($order))$this->db->order_by($order);
+		
+		$query = $this->db->get("t_kelas");
+		if($query AND $query->num_rows() !=0){
+			return $query->result();
+		}else{
+			return array();
+		}
+	}
 }
 
 ?>
