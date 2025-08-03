@@ -7,7 +7,7 @@
 
 -->
 
-	<div class="sidebar-wrapper">
+	<div class="sidebar-wrapper" style="height: auto;">
 		<div class="logo">
 			<a href="#" class="simple-text">
 				SMKN 1 KATAPANG
@@ -53,6 +53,7 @@
 			</li>
 			<?php } ?>
 			
+			<?php if($this->session->userdata('level')==2){?>
 			<li>
 				<a href="<?= site_url("Penilaian/index/").$id_guru?>">
 					<i class="pe-7s-notebook"></i>
@@ -66,6 +67,25 @@
 					<p>Penilaian SKP</p>
 				</a>
 			</li>
+			<?php } ?>
+			
+			<?php if($this->session->userdata('level')==4){?>
+			<li>
+				<a href="<?= site_url("Penilaiansiswa")?>">
+					<i class="pe-7s-ribbon"></i>
+					<p>Penilaian Guru Oleh Siswa</p>
+				</a>
+			</li>
+			<?php } ?>
+			
+			<?php if($this->session->userdata('level')==5){?>
+			<li>
+				<a href="<?= site_url("Penilaianskp")?>">
+					<i class="pe-7s-ribbon"></i>
+					<p>Penilaian Guru Oleh Wali Siswa</p>
+				</a>
+			</li>
+			<?php } ?>
 		</ul>
 	</div>
 </div>
