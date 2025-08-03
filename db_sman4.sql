@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.8.5
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 30, 2017 at 07:56 AM
--- Server version: 10.1.10-MariaDB
--- PHP Version: 7.0.2
+-- Waktu pembuatan: 04 Agu 2025 pada 01.56
+-- Versi server: 10.1.38-MariaDB
+-- Versi PHP: 5.6.40
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -23,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `privmsgs`
+-- Struktur dari tabel `privmsgs`
 --
 
 CREATE TABLE `privmsgs` (
@@ -38,7 +40,7 @@ CREATE TABLE `privmsgs` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `privmsgs`
+-- Dumping data untuk tabel `privmsgs`
 --
 
 INSERT INTO `privmsgs` (`privmsg_id`, `privmsg_author`, `privmsg_date`, `privmsg_subject`, `privmsg_body`, `privmsg_notify`, `privmsg_deleted`, `privmsg_ddate`) VALUES
@@ -76,7 +78,7 @@ INSERT INTO `privmsgs` (`privmsg_id`, `privmsg_author`, `privmsg_date`, `privmsg
 -- --------------------------------------------------------
 
 --
--- Table structure for table `privmsgs_to`
+-- Struktur dari tabel `privmsgs_to`
 --
 
 CREATE TABLE `privmsgs_to` (
@@ -91,7 +93,7 @@ CREATE TABLE `privmsgs_to` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `privmsgs_to`
+-- Dumping data untuk tabel `privmsgs_to`
 --
 
 INSERT INTO `privmsgs_to` (`pmto_id`, `pmto_message`, `pmto_recipient`, `pmto_read`, `pmto_rdate`, `pmto_deleted`, `pmto_ddate`, `pmto_allownotify`) VALUES
@@ -127,7 +129,7 @@ INSERT INTO `privmsgs_to` (`pmto_id`, `pmto_message`, `pmto_recipient`, `pmto_re
 -- --------------------------------------------------------
 
 --
--- Table structure for table `t_dataguru`
+-- Struktur dari tabel `t_dataguru`
 --
 
 CREATE TABLE `t_dataguru` (
@@ -162,7 +164,7 @@ CREATE TABLE `t_dataguru` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `t_dataguru`
+-- Dumping data untuk tabel `t_dataguru`
 --
 
 INSERT INTO `t_dataguru` (`id_guru`, `NIP`, `nama`, `nuptk`, `nrg`, `nokarpeg`, `tempat_lhr`, `tgl_lhr`, `jk`, `alamat_diri`, `kota_diri`, `kecamatan_diri`, `kode_pos`, `tentang`, `image`, `id_pendidikan`, `id_pangkat`, `id_jabatan`, `tmtjabatan`, `masa_sk`, `id_tugas`, `id_sekolah`, `masa_nilai_awal`, `masa_nilai_akhir`, `tgl_persetujuan`, `id_level`, `id_penilai`, `status`) VALUES
@@ -175,7 +177,7 @@ INSERT INTO `t_dataguru` (`id_guru`, `NIP`, `nama`, `nuptk`, `nrg`, `nokarpeg`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `t_jabatan`
+-- Struktur dari tabel `t_jabatan`
 --
 
 CREATE TABLE `t_jabatan` (
@@ -184,7 +186,7 @@ CREATE TABLE `t_jabatan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `t_jabatan`
+-- Dumping data untuk tabel `t_jabatan`
 --
 
 INSERT INTO `t_jabatan` (`id_jabatan`, `nama_jabatan`) VALUES
@@ -195,7 +197,109 @@ INSERT INTO `t_jabatan` (`id_jabatan`, `nama_jabatan`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `t_level`
+-- Struktur dari tabel `t_kelas`
+--
+
+CREATE TABLE `t_kelas` (
+  `id_kelas` int(11) NOT NULL,
+  `nama_kelas` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `t_kelas`
+--
+
+INSERT INTO `t_kelas` (`id_kelas`, `nama_kelas`) VALUES
+(1, 'X IPA A');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `t_komp_penilaian_siswa`
+--
+
+CREATE TABLE `t_komp_penilaian_siswa` (
+  `id_komp_siswa` int(11) NOT NULL,
+  `Pernyataan` varchar(255) NOT NULL,
+  `komponen` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `t_komp_penilaian_siswa`
+--
+
+INSERT INTO `t_komp_penilaian_siswa` (`id_komp_siswa`, `Pernyataan`, `komponen`) VALUES
+(1, 'Guru menyampaikan materi pelajaran dengan contoh kehidupan sehari-hari', 'Penguasaan Materi'),
+(2, 'Guru menjelaskan materi Pelajaran dari buku paket dan sumber belajar lainnya', 'Penguasaan Materi'),
+(3, 'Guru memberikan contoh atau permasalahan yang berhubungan dengan keadaan saat ini', 'Penguasaan Materi'),
+(4, 'Guru menjawab pertanyaan dengan jelas dan benar', 'Penguasaan Materi'),
+(5, 'Guru Mengajar sesuai dengan materi pelajaran', 'Penguasaan Materi'),
+(6, 'Guru menyampaikan kegiatan yang akan dilakukan selama pembelajaran', 'Kemahiran dalam mengajar'),
+(7, 'Guru memberikan motivasi kepada saya dan teman-teman', 'Kemahiran dalam mengajar'),
+(8, 'Guru menyampaikan materi pelajaran dengan mudah dimengerti', 'Kemahiran dalam mengajar'),
+(9, 'Guru mengajar dengan cara yang bervariasi misalnya diskusi, demonstrasi, tanya jawab, ceramah dan lain-lain', 'Kemahiran dalam mengajar'),
+(10, 'Guru berbicara dengan jelas ketika menyampaikan materi pelajaran', 'Kemahiran dalam mengajar'),
+(11, 'Guru meminta belajar secara berkelompok', 'Kemahiran dalam mengajar'),
+(12, 'Guru mengajar secara menyenangkan dan menarik', 'Kemahiran dalam mengajar'),
+(13, 'Guru terampil menggunakan alat bantu saat mengajar', 'Kemahiran dalam mengajar'),
+(14, 'Guru membimbing saya dan teman-teman ketika mengalami kesulitan', 'Kemahiran dalam mengajar'),
+(15, 'Guru membuat suasana nyaman saat melaksanakan pembelajaran', 'Kemahiran dalam mengajar'),
+(16, 'Guru memberikan kesempatan kepada saya dan teman-teman untuk bertanya dan menjawab', 'Kemahiran dalam mengajar'),
+(17, 'Guru menghargai kemampuan saya dan teman-teman', 'Kemahiran dalam mengajar'),
+(18, 'Guru memberikan nilai hasil belajar', 'Kemahiran dalam mengajar'),
+(19, 'Guru memberikan tugas dalam pembelajaran', 'Kemahiran dalam mengajar'),
+(20, 'Guru mengajak saya dan teman-teman untuk berprilaku baik', 'Perilaku Guru sehari-hari'),
+(21, 'Guru memberi contoh perilaku yang sesuai dengan aturan', 'Perilaku Guru sehari-hari'),
+(22, 'Guru menjalankan ibadah sesuai dengan ajaran agamanya', 'Perilaku Guru sehari-hari'),
+(23, 'Guru berpakaian rapih sesuai dengan aturan sekolah', 'Perilaku Guru sehari-hari'),
+(24, 'Guru menghargai perbedaan asal, suku, agama dan ras.', 'Perilaku Guru sehari-hari'),
+(25, 'Guru berbicara dengan santun', 'Perilaku Guru sehari-hari'),
+(26, 'Guru ramah', 'Perilaku Guru sehari-hari'),
+(27, 'Guru Sabar', 'Perilaku Guru sehari-hari'),
+(28, 'Guru memulai pembelajaran tepat waktu', 'Perilaku Guru sehari-hari'),
+(29, 'Guru mengakhiri pembelajaran tepat waktu', 'Perilaku Guru sehari-hari'),
+(30, 'Guru memberikan tugas apabila berhalangan hadir', 'Perilaku Guru sehari-hari'),
+(31, 'Guru menjaga lingkungan sekolah tanpa asap rokok', 'Perilaku Guru sehari-hari'),
+(32, 'Guru menjaga kebersihan lingkungan sekolah', 'Perilaku Guru sehari-hari'),
+(33, 'Guru memulai dan mengakhiri pembelajaran dengan doa bersama', 'Perilaku Guru sehari-hari'),
+(34, 'Guru memperhatikan kebutuhan belajar saya dan teman-teman', 'Hubungan sosial dengan peserta didik'),
+(35, 'Guru menyebutkan nama saya dan teman-teman selama kegiatan pembelajaran atau kegiatan lainnya', 'Hubungan sosial dengan peserta didik'),
+(36, 'Guru memberi perhatian kepada saya dan teman-teman', 'Hubungan sosial dengan peserta didik'),
+(37, 'Guru memelihara komunikasi yang baik dengan semua peserta didik', 'Hubungan sosial dengan peserta didik'),
+(38, 'Guru mudah dihubungi pada saat diperlukan untuk diskusi', 'Hubungan sosial dengan peserta didik'),
+(39, 'Guru akrab dengan saya dan teman-teman', 'Hubungan sosial dengan peserta didik'),
+(40, 'Guru ikut serta dalam berbagai macam kegiatan sekolah (upacara, kegiatan keagamaan, senam bersama)', 'Hubungan sosial dengan peserta didik');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `t_komp_penilaian_wali`
+--
+
+CREATE TABLE `t_komp_penilaian_wali` (
+  `id_komp_wali` int(11) NOT NULL,
+  `Pernyataan` varchar(255) NOT NULL,
+  `komponen` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `t_komp_penilaian_wali`
+--
+
+INSERT INTO `t_komp_penilaian_wali` (`id_komp_wali`, `Pernyataan`, `komponen`) VALUES
+(1, 'Guru memberitahukan perkembangan belajar putra / putri saya', 'Komunikasi'),
+(2, 'Guru memberi kesempatan berkomunikasi dengan saya yang berkaitan dengan perilaku atau kesulitan belajar', 'Komunikasi'),
+(3, 'Guru bekerjasama dengan orang tua untuk menyelesaikan kesulitan belajar putra / putri saya', 'Komunikasi'),
+(4, 'Guru berperan sebagai orang tua bagi putra / putri saya di sekolah', 'Kepercayaan dalam memberikan pendidikan'),
+(5, 'Guru mengubah perilaku putra / putri saya menjadi lebih baik', 'Kepercayaan dalam memberikan pendidikan'),
+(6, 'Guru memberikan bimbingan dalam pembelajaran kepada putra / putri saya yang dapat dimanfaatkan dalam kehidupan sehari-hari', 'Kepercayaan dalam memberikan pendidikan'),
+(7, 'Guru disenangi oleh putra / putri saya dan teman-temannya', 'Kepercayaan dalam memberikan pendidikan'),
+(8, 'Guru mengembalikan hasil belajar (PR, Tugas, Hasil Ulangan) putra - putri saya dilengkapi dengan catatan', 'Kepercayaan dalam memberikan pendidikan');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `t_level`
 --
 
 CREATE TABLE `t_level` (
@@ -204,18 +308,20 @@ CREATE TABLE `t_level` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `t_level`
+-- Dumping data untuk tabel `t_level`
 --
 
 INSERT INTO `t_level` (`id_level`, `nama_level`) VALUES
 (1, 'Super User'),
 (2, 'Penilai'),
-(3, 'Guru');
+(3, 'Guru'),
+(4, 'Siswa'),
+(5, 'Wali Siswa');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `t_login`
+-- Struktur dari tabel `t_login`
 --
 
 CREATE TABLE `t_login` (
@@ -227,20 +333,22 @@ CREATE TABLE `t_login` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `t_login`
+-- Dumping data untuk tabel `t_login`
 --
 
 INSERT INTO `t_login` (`id_login`, `NIP`, `username`, `password`, `id_level`) VALUES
-(1, '1415115754', 'admin', '21232f297a57a5a743894a0e4a801fc3', 1),
+(1, '1415115754', 'admin', 'e64b78fc3bc91bcbc7dc232ba8ec59e0', 1),
 (2, '140000923', 'user', 'ee11cbb19052e40b07aac0ca060c23ee', 3),
 (3, '1415535414', 'aam', '35c2d90f7c06b623fe763d0a4e5b7ed9', 2),
 (4, '1415535050', '1415535050', 'fa3198a6b7e6b80a9eec102edfe1a1a4', 3),
-(5, '1415535410', '1415535410', '22f6004cc6139a5080776b1c1979a81c', 3);
+(5, '1415535410', '1415535410', '22f6004cc6139a5080776b1c1979a81c', 3),
+(8, '8978977', '8978977', 'e83a2df9eb3d8872b829bcfbc59b3b63', 4),
+(9, '13131', '13131', '052a1a3c0142ad636571f88ea2506eac', 5);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `t_matpel`
+-- Struktur dari tabel `t_matpel`
 --
 
 CREATE TABLE `t_matpel` (
@@ -249,7 +357,7 @@ CREATE TABLE `t_matpel` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `t_matpel`
+-- Dumping data untuk tabel `t_matpel`
 --
 
 INSERT INTO `t_matpel` (`id_tugas`, `nama_matpel`) VALUES
@@ -270,7 +378,7 @@ INSERT INTO `t_matpel` (`id_tugas`, `nama_matpel`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `t_nilaihasil`
+-- Struktur dari tabel `t_nilaihasil`
 --
 
 CREATE TABLE `t_nilaihasil` (
@@ -285,7 +393,7 @@ CREATE TABLE `t_nilaihasil` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `t_nilaihasil`
+-- Dumping data untuk tabel `t_nilaihasil`
 --
 
 INSERT INTO `t_nilaihasil` (`id_hasilnilai`, `id_penilaian`, `id_bagian`, `id_guru`, `jumlah`, `persentase`, `total_nilai`, `jml_pk`) VALUES
@@ -299,7 +407,7 @@ INSERT INTO `t_nilaihasil` (`id_hasilnilai`, `id_penilaian`, `id_bagian`, `id_gu
 -- --------------------------------------------------------
 
 --
--- Table structure for table `t_nilaihasilskp`
+-- Struktur dari tabel `t_nilaihasilskp`
 --
 
 CREATE TABLE `t_nilaihasilskp` (
@@ -313,7 +421,7 @@ CREATE TABLE `t_nilaihasilskp` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `t_nilaihasil_c`
+-- Struktur dari tabel `t_nilaihasil_c`
 --
 
 CREATE TABLE `t_nilaihasil_c` (
@@ -323,7 +431,7 @@ CREATE TABLE `t_nilaihasil_c` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `t_nilaihasil_c`
+-- Dumping data untuk tabel `t_nilaihasil_c`
 --
 
 INSERT INTO `t_nilaihasil_c` (`id_nilai`, `id_guru`, `jumlah`) VALUES
@@ -332,7 +440,7 @@ INSERT INTO `t_nilaihasil_c` (`id_nilai`, `id_guru`, `jumlah`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `t_nilaikomp`
+-- Struktur dari tabel `t_nilaikomp`
 --
 
 CREATE TABLE `t_nilaikomp` (
@@ -341,7 +449,7 @@ CREATE TABLE `t_nilaikomp` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `t_nilaikomp`
+-- Dumping data untuk tabel `t_nilaikomp`
 --
 
 INSERT INTO `t_nilaikomp` (`id_nilai`, `indikator`) VALUES
@@ -427,7 +535,7 @@ INSERT INTO `t_nilaikomp` (`id_nilai`, `indikator`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `t_nilaikompskp`
+-- Struktur dari tabel `t_nilaikompskp`
 --
 
 CREATE TABLE `t_nilaikompskp` (
@@ -436,7 +544,7 @@ CREATE TABLE `t_nilaikompskp` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `t_nilaikompskp`
+-- Dumping data untuk tabel `t_nilaikompskp`
 --
 
 INSERT INTO `t_nilaikompskp` (`id_nilskp`, `indikator_skp`) VALUES
@@ -480,7 +588,7 @@ INSERT INTO `t_nilaikompskp` (`id_nilskp`, `indikator_skp`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `t_nilaikomp_c`
+-- Struktur dari tabel `t_nilaikomp_c`
 --
 
 CREATE TABLE `t_nilaikomp_c` (
@@ -490,7 +598,7 @@ CREATE TABLE `t_nilaikomp_c` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `t_nilaikomp_c`
+-- Dumping data untuk tabel `t_nilaikomp_c`
 --
 
 INSERT INTO `t_nilaikomp_c` (`id_komp`, `indikator`, `bagian`) VALUES
@@ -512,7 +620,35 @@ INSERT INTO `t_nilaikomp_c` (`id_komp`, `indikator`, `bagian`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `t_pangkat`
+-- Struktur dari tabel `t_nilai_penilaian_siswa`
+--
+
+CREATE TABLE `t_nilai_penilaian_siswa` (
+  `id_nilai_komp_siswa` int(11) NOT NULL,
+  `NIP` varchar(18) NOT NULL,
+  `NIS` varchar(20) NOT NULL,
+  `id_komp_siswa` int(11) NOT NULL,
+  `grade` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `t_nilai_penilaian_wali`
+--
+
+CREATE TABLE `t_nilai_penilaian_wali` (
+  `id_nilai_komp_wali` int(11) NOT NULL,
+  `NIP` varchar(18) NOT NULL,
+  `NIS` varchar(20) NOT NULL,
+  `id_komp_wali` int(11) NOT NULL,
+  `grade` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `t_pangkat`
 --
 
 CREATE TABLE `t_pangkat` (
@@ -521,7 +657,7 @@ CREATE TABLE `t_pangkat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `t_pangkat`
+-- Dumping data untuk tabel `t_pangkat`
 --
 
 INSERT INTO `t_pangkat` (`id_pangkat`, `nama_pangkat`) VALUES
@@ -546,7 +682,7 @@ INSERT INTO `t_pangkat` (`id_pangkat`, `nama_pangkat`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `t_pendidikan`
+-- Struktur dari tabel `t_pendidikan`
 --
 
 CREATE TABLE `t_pendidikan` (
@@ -555,7 +691,7 @@ CREATE TABLE `t_pendidikan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `t_pendidikan`
+-- Dumping data untuk tabel `t_pendidikan`
 --
 
 INSERT INTO `t_pendidikan` (`id_pendidikan`, `nama_pendidikan`) VALUES
@@ -573,7 +709,7 @@ INSERT INTO `t_pendidikan` (`id_pendidikan`, `nama_pendidikan`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `t_penilaian`
+-- Struktur dari tabel `t_penilaian`
 --
 
 CREATE TABLE `t_penilaian` (
@@ -585,7 +721,7 @@ CREATE TABLE `t_penilaian` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `t_penilaian`
+-- Dumping data untuk tabel `t_penilaian`
 --
 
 INSERT INTO `t_penilaian` (`id_penilaian`, `id_nilai`, `id_bagian`, `id_guru`, `nilai`) VALUES
@@ -616,7 +752,7 @@ INSERT INTO `t_penilaian` (`id_penilaian`, `id_nilai`, `id_bagian`, `id_guru`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `t_penilaianskp`
+-- Struktur dari tabel `t_penilaianskp`
 --
 
 CREATE TABLE `t_penilaianskp` (
@@ -630,7 +766,7 @@ CREATE TABLE `t_penilaianskp` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `t_penilaian_c`
+-- Struktur dari tabel `t_penilaian_c`
 --
 
 CREATE TABLE `t_penilaian_c` (
@@ -641,7 +777,7 @@ CREATE TABLE `t_penilaian_c` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `t_penilaian_c`
+-- Dumping data untuk tabel `t_penilaian_c`
 --
 
 INSERT INTO `t_penilaian_c` (`id_penilaian`, `id_komp`, `id_guru`, `nilai`) VALUES
@@ -663,7 +799,7 @@ INSERT INTO `t_penilaian_c` (`id_penilaian`, `id_komp`, `id_guru`, `nilai`) VALU
 -- --------------------------------------------------------
 
 --
--- Table structure for table `t_sekolah`
+-- Struktur dari tabel `t_sekolah`
 --
 
 CREATE TABLE `t_sekolah` (
@@ -677,30 +813,74 @@ CREATE TABLE `t_sekolah` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `t_sekolah`
+-- Dumping data untuk tabel `t_sekolah`
 --
 
 INSERT INTO `t_sekolah` (`id_sekolah`, `nama_sekolah`, `alamat`, `kelurahan`, `kecamatan`, `kota`, `provinsi`) VALUES
 (1, 'SMAN 4 BANDUNG', 'Jalan Gardujati No. 20 Bandung', 'Kebon Jeruk', 'Andir', 'Kota Bandung', 'Jawa Barat');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `t_siswa`
+--
+
+CREATE TABLE `t_siswa` (
+  `id_siswa` int(11) NOT NULL,
+  `NIS` varchar(20) NOT NULL,
+  `nama_siswa` varchar(100) NOT NULL,
+  `alamat` text,
+  `agama` varchar(20) DEFAULT NULL,
+  `no_hp` varchar(20) DEFAULT NULL,
+  `id_kelas` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `t_siswa`
+--
+
+INSERT INTO `t_siswa` (`id_siswa`, `NIS`, `nama_siswa`, `alamat`, `agama`, `no_hp`, `id_kelas`) VALUES
+(4, '8978977', 'Bayu Pradana', 'Bandung', 'Islam', '087666555444', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `t_wali_siswa`
+--
+
+CREATE TABLE `t_wali_siswa` (
+  `id_wali` int(11) NOT NULL,
+  `NIK` varchar(16) NOT NULL,
+  `nama_wali` varchar(100) NOT NULL,
+  `no_hp` varchar(20) DEFAULT NULL,
+  `alamat` text
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `t_wali_siswa`
+--
+
+INSERT INTO `t_wali_siswa` (`id_wali`, `NIK`, `nama_wali`, `no_hp`, `alamat`) VALUES
+(1, '13131', 'Ucok Sanusi', '7963786', 'Jakarta');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `privmsgs`
+-- Indeks untuk tabel `privmsgs`
 --
 ALTER TABLE `privmsgs`
   ADD UNIQUE KEY `privmsg_id` (`privmsg_id`);
 
 --
--- Indexes for table `privmsgs_to`
+-- Indeks untuk tabel `privmsgs_to`
 --
 ALTER TABLE `privmsgs_to`
   ADD UNIQUE KEY `pmto_id` (`pmto_id`);
 
 --
--- Indexes for table `t_dataguru`
+-- Indeks untuk tabel `t_dataguru`
 --
 ALTER TABLE `t_dataguru`
   ADD PRIMARY KEY (`id_guru`,`NIP`),
@@ -714,19 +894,38 @@ ALTER TABLE `t_dataguru`
   ADD KEY `id_penilai` (`id_penilai`);
 
 --
--- Indexes for table `t_jabatan`
+-- Indeks untuk tabel `t_jabatan`
 --
 ALTER TABLE `t_jabatan`
   ADD PRIMARY KEY (`id_jabatan`);
 
 --
--- Indexes for table `t_level`
+-- Indeks untuk tabel `t_kelas`
+--
+ALTER TABLE `t_kelas`
+  ADD PRIMARY KEY (`id_kelas`),
+  ADD UNIQUE KEY `nama_kelas` (`nama_kelas`);
+
+--
+-- Indeks untuk tabel `t_komp_penilaian_siswa`
+--
+ALTER TABLE `t_komp_penilaian_siswa`
+  ADD PRIMARY KEY (`id_komp_siswa`);
+
+--
+-- Indeks untuk tabel `t_komp_penilaian_wali`
+--
+ALTER TABLE `t_komp_penilaian_wali`
+  ADD PRIMARY KEY (`id_komp_wali`);
+
+--
+-- Indeks untuk tabel `t_level`
 --
 ALTER TABLE `t_level`
   ADD PRIMARY KEY (`id_level`);
 
 --
--- Indexes for table `t_login`
+-- Indeks untuk tabel `t_login`
 --
 ALTER TABLE `t_login`
   ADD PRIMARY KEY (`id_login`),
@@ -734,13 +933,13 @@ ALTER TABLE `t_login`
   ADD KEY `NIP` (`NIP`);
 
 --
--- Indexes for table `t_matpel`
+-- Indeks untuk tabel `t_matpel`
 --
 ALTER TABLE `t_matpel`
   ADD PRIMARY KEY (`id_tugas`);
 
 --
--- Indexes for table `t_nilaihasil`
+-- Indeks untuk tabel `t_nilaihasil`
 --
 ALTER TABLE `t_nilaihasil`
   ADD PRIMARY KEY (`id_hasilnilai`),
@@ -748,51 +947,63 @@ ALTER TABLE `t_nilaihasil`
   ADD KEY `id_penilaian` (`id_penilaian`);
 
 --
--- Indexes for table `t_nilaihasilskp`
+-- Indeks untuk tabel `t_nilaihasilskp`
 --
 ALTER TABLE `t_nilaihasilskp`
   ADD PRIMARY KEY (`id_hasilskp`),
   ADD KEY `id_guru` (`id_guru`);
 
 --
--- Indexes for table `t_nilaihasil_c`
+-- Indeks untuk tabel `t_nilaihasil_c`
 --
 ALTER TABLE `t_nilaihasil_c`
   ADD PRIMARY KEY (`id_nilai`),
   ADD KEY `id_guru` (`id_guru`);
 
 --
--- Indexes for table `t_nilaikomp`
+-- Indeks untuk tabel `t_nilaikomp`
 --
 ALTER TABLE `t_nilaikomp`
   ADD PRIMARY KEY (`id_nilai`);
 
 --
--- Indexes for table `t_nilaikompskp`
+-- Indeks untuk tabel `t_nilaikompskp`
 --
 ALTER TABLE `t_nilaikompskp`
   ADD PRIMARY KEY (`id_nilskp`);
 
 --
--- Indexes for table `t_nilaikomp_c`
+-- Indeks untuk tabel `t_nilaikomp_c`
 --
 ALTER TABLE `t_nilaikomp_c`
   ADD PRIMARY KEY (`id_komp`);
 
 --
--- Indexes for table `t_pangkat`
+-- Indeks untuk tabel `t_nilai_penilaian_siswa`
+--
+ALTER TABLE `t_nilai_penilaian_siswa`
+  ADD PRIMARY KEY (`id_nilai_komp_siswa`);
+
+--
+-- Indeks untuk tabel `t_nilai_penilaian_wali`
+--
+ALTER TABLE `t_nilai_penilaian_wali`
+  ADD PRIMARY KEY (`id_nilai_komp_wali`);
+
+--
+-- Indeks untuk tabel `t_pangkat`
 --
 ALTER TABLE `t_pangkat`
   ADD PRIMARY KEY (`id_pangkat`);
 
 --
--- Indexes for table `t_pendidikan`
+-- Indeks untuk tabel `t_pendidikan`
 --
 ALTER TABLE `t_pendidikan`
   ADD PRIMARY KEY (`id_pendidikan`);
 
 --
--- Indexes for table `t_penilaian`
+-- Indeks untuk tabel `t_penilaian`
 --
 ALTER TABLE `t_penilaian`
   ADD PRIMARY KEY (`id_penilaian`),
@@ -800,7 +1011,7 @@ ALTER TABLE `t_penilaian`
   ADD KEY `id_guru` (`id_guru`);
 
 --
--- Indexes for table `t_penilaianskp`
+-- Indeks untuk tabel `t_penilaianskp`
 --
 ALTER TABLE `t_penilaianskp`
   ADD PRIMARY KEY (`id_penilaian`),
@@ -808,7 +1019,7 @@ ALTER TABLE `t_penilaianskp`
   ADD KEY `id_guru` (`id_guru`);
 
 --
--- Indexes for table `t_penilaian_c`
+-- Indeks untuk tabel `t_penilaian_c`
 --
 ALTER TABLE `t_penilaian_c`
   ADD PRIMARY KEY (`id_penilaian`),
@@ -816,116 +1027,192 @@ ALTER TABLE `t_penilaian_c`
   ADD KEY `id_guru` (`id_guru`);
 
 --
--- Indexes for table `t_sekolah`
+-- Indeks untuk tabel `t_sekolah`
 --
 ALTER TABLE `t_sekolah`
   ADD PRIMARY KEY (`id_sekolah`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- Indeks untuk tabel `t_siswa`
+--
+ALTER TABLE `t_siswa`
+  ADD PRIMARY KEY (`id_siswa`),
+  ADD UNIQUE KEY `NIS` (`NIS`),
+  ADD KEY `id_kelas` (`id_kelas`);
+
+--
+-- Indeks untuk tabel `t_wali_siswa`
+--
+ALTER TABLE `t_wali_siswa`
+  ADD PRIMARY KEY (`id_wali`),
+  ADD UNIQUE KEY `NIK` (`NIK`);
+
+--
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `privmsgs`
+-- AUTO_INCREMENT untuk tabel `privmsgs`
 --
 ALTER TABLE `privmsgs`
   MODIFY `privmsg_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
 --
--- AUTO_INCREMENT for table `privmsgs_to`
+-- AUTO_INCREMENT untuk tabel `privmsgs_to`
 --
 ALTER TABLE `privmsgs_to`
   MODIFY `pmto_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+
 --
--- AUTO_INCREMENT for table `t_dataguru`
+-- AUTO_INCREMENT untuk tabel `t_dataguru`
 --
 ALTER TABLE `t_dataguru`
   MODIFY `id_guru` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
--- AUTO_INCREMENT for table `t_jabatan`
+-- AUTO_INCREMENT untuk tabel `t_jabatan`
 --
 ALTER TABLE `t_jabatan`
   MODIFY `id_jabatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
--- AUTO_INCREMENT for table `t_level`
+-- AUTO_INCREMENT untuk tabel `t_kelas`
+--
+ALTER TABLE `t_kelas`
+  MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT untuk tabel `t_komp_penilaian_siswa`
+--
+ALTER TABLE `t_komp_penilaian_siswa`
+  MODIFY `id_komp_siswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+
+--
+-- AUTO_INCREMENT untuk tabel `t_komp_penilaian_wali`
+--
+ALTER TABLE `t_komp_penilaian_wali`
+  MODIFY `id_komp_wali` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT untuk tabel `t_level`
 --
 ALTER TABLE `t_level`
-  MODIFY `id_level` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_level` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
--- AUTO_INCREMENT for table `t_login`
+-- AUTO_INCREMENT untuk tabel `t_login`
 --
 ALTER TABLE `t_login`
-  MODIFY `id_login` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_login` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
 --
--- AUTO_INCREMENT for table `t_matpel`
+-- AUTO_INCREMENT untuk tabel `t_matpel`
 --
 ALTER TABLE `t_matpel`
   MODIFY `id_tugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
 --
--- AUTO_INCREMENT for table `t_nilaihasil`
+-- AUTO_INCREMENT untuk tabel `t_nilaihasil`
 --
 ALTER TABLE `t_nilaihasil`
   MODIFY `id_hasilnilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
 --
--- AUTO_INCREMENT for table `t_nilaihasilskp`
+-- AUTO_INCREMENT untuk tabel `t_nilaihasilskp`
 --
 ALTER TABLE `t_nilaihasilskp`
   MODIFY `id_hasilskp` int(11) NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT for table `t_nilaihasil_c`
+-- AUTO_INCREMENT untuk tabel `t_nilaihasil_c`
 --
 ALTER TABLE `t_nilaihasil_c`
   MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
--- AUTO_INCREMENT for table `t_nilaikomp`
+-- AUTO_INCREMENT untuk tabel `t_nilaikomp`
 --
 ALTER TABLE `t_nilaikomp`
   MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+
 --
--- AUTO_INCREMENT for table `t_nilaikompskp`
+-- AUTO_INCREMENT untuk tabel `t_nilaikompskp`
 --
 ALTER TABLE `t_nilaikompskp`
   MODIFY `id_nilskp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+
 --
--- AUTO_INCREMENT for table `t_nilaikomp_c`
+-- AUTO_INCREMENT untuk tabel `t_nilaikomp_c`
 --
 ALTER TABLE `t_nilaikomp_c`
   MODIFY `id_komp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
 --
--- AUTO_INCREMENT for table `t_pangkat`
+-- AUTO_INCREMENT untuk tabel `t_nilai_penilaian_siswa`
+--
+ALTER TABLE `t_nilai_penilaian_siswa`
+  MODIFY `id_nilai_komp_siswa` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `t_nilai_penilaian_wali`
+--
+ALTER TABLE `t_nilai_penilaian_wali`
+  MODIFY `id_nilai_komp_wali` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `t_pangkat`
 --
 ALTER TABLE `t_pangkat`
   MODIFY `id_pangkat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
 --
--- AUTO_INCREMENT for table `t_pendidikan`
+-- AUTO_INCREMENT untuk tabel `t_pendidikan`
 --
 ALTER TABLE `t_pendidikan`
   MODIFY `id_pendidikan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
 --
--- AUTO_INCREMENT for table `t_penilaian`
+-- AUTO_INCREMENT untuk tabel `t_penilaian`
 --
 ALTER TABLE `t_penilaian`
   MODIFY `id_penilaian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
+
 --
--- AUTO_INCREMENT for table `t_penilaianskp`
+-- AUTO_INCREMENT untuk tabel `t_penilaianskp`
 --
 ALTER TABLE `t_penilaianskp`
   MODIFY `id_penilaian` int(11) NOT NULL AUTO_INCREMENT;
+
 --
--- AUTO_INCREMENT for table `t_penilaian_c`
+-- AUTO_INCREMENT untuk tabel `t_penilaian_c`
 --
 ALTER TABLE `t_penilaian_c`
   MODIFY `id_penilaian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
 --
--- AUTO_INCREMENT for table `t_sekolah`
+-- AUTO_INCREMENT untuk tabel `t_sekolah`
 --
 ALTER TABLE `t_sekolah`
   MODIFY `id_sekolah` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
--- Constraints for dumped tables
+-- AUTO_INCREMENT untuk tabel `t_siswa`
+--
+ALTER TABLE `t_siswa`
+  MODIFY `id_siswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT untuk tabel `t_wali_siswa`
+--
+ALTER TABLE `t_wali_siswa`
+  MODIFY `id_wali` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Constraints for table `t_dataguru`
+-- Ketidakleluasaan untuk tabel `t_dataguru`
 --
 ALTER TABLE `t_dataguru`
   ADD CONSTRAINT `t_dataguru_ibfk_1` FOREIGN KEY (`id_pendidikan`) REFERENCES `t_pendidikan` (`id_pendidikan`),
@@ -936,43 +1223,49 @@ ALTER TABLE `t_dataguru`
   ADD CONSTRAINT `t_dataguru_ibfk_7` FOREIGN KEY (`id_level`) REFERENCES `t_level` (`id_level`);
 
 --
--- Constraints for table `t_login`
+-- Ketidakleluasaan untuk tabel `t_login`
 --
 ALTER TABLE `t_login`
-  ADD CONSTRAINT `t_login_ibfk_1` FOREIGN KEY (`id_level`) REFERENCES `t_level` (`id_level`),
-  ADD CONSTRAINT `t_login_ibfk_2` FOREIGN KEY (`NIP`) REFERENCES `t_dataguru` (`NIP`);
+  ADD CONSTRAINT `t_login_ibfk_1` FOREIGN KEY (`id_level`) REFERENCES `t_level` (`id_level`);
 
 --
--- Constraints for table `t_nilaihasil`
+-- Ketidakleluasaan untuk tabel `t_nilaihasil`
 --
 ALTER TABLE `t_nilaihasil`
   ADD CONSTRAINT `t_nilaihasil_ibfk_4` FOREIGN KEY (`id_guru`) REFERENCES `t_dataguru` (`id_guru`);
 
 --
--- Constraints for table `t_nilaihasilskp`
+-- Ketidakleluasaan untuk tabel `t_nilaihasilskp`
 --
 ALTER TABLE `t_nilaihasilskp`
   ADD CONSTRAINT `t_nilaihasilskp_ibfk_1` FOREIGN KEY (`id_guru`) REFERENCES `t_dataguru` (`id_guru`);
 
 --
--- Constraints for table `t_nilaihasil_c`
+-- Ketidakleluasaan untuk tabel `t_nilaihasil_c`
 --
 ALTER TABLE `t_nilaihasil_c`
   ADD CONSTRAINT `idguru` FOREIGN KEY (`id_guru`) REFERENCES `t_dataguru` (`id_guru`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `t_penilaian`
+-- Ketidakleluasaan untuk tabel `t_penilaian`
 --
 ALTER TABLE `t_penilaian`
   ADD CONSTRAINT `fk_id_guru` FOREIGN KEY (`id_guru`) REFERENCES `t_dataguru` (`id_guru`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_id_nilai` FOREIGN KEY (`id_nilai`) REFERENCES `t_nilaikomp` (`id_nilai`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `t_penilaianskp`
+-- Ketidakleluasaan untuk tabel `t_penilaianskp`
 --
 ALTER TABLE `t_penilaianskp`
   ADD CONSTRAINT `t_penilaianskp_ibfk_1` FOREIGN KEY (`id_nilskp`) REFERENCES `t_nilaikompskp` (`id_nilskp`),
   ADD CONSTRAINT `t_penilaianskp_ibfk_2` FOREIGN KEY (`id_guru`) REFERENCES `t_dataguru` (`id_guru`);
+
+--
+-- Ketidakleluasaan untuk tabel `t_siswa`
+--
+ALTER TABLE `t_siswa`
+  ADD CONSTRAINT `t_siswa_ibfk_1` FOREIGN KEY (`id_kelas`) REFERENCES `t_kelas` (`id_kelas`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
